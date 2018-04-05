@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @Author: wsj
- * @Description:
+ * @Description:商品
  * @Modified by:
  */
 

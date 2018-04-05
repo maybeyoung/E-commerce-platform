@@ -16,8 +16,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * @Author: wsj
- * @Description:
- * @Create in 下午 9:34 2018/4/1 0001
+ * @Description:用户
  * @Modified by:
  */
 @Controller
