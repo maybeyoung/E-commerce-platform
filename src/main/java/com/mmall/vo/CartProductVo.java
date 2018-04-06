@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 /**
  * @Author: wsj
  * @Description: 结合了产品和购物车的一个抽象对象
- * @Create in 下午 10:25 2018/4/4 0004
  * @Modified by:
  */
 public class CartProductVo {
