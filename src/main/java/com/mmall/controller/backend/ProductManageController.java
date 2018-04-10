@@ -223,7 +223,6 @@ public class ProductManageController {
     /**
      * 富文本上传
      * 因为使用的是simditor插件，这个也是专门符合simditor的要求写的
-     * @param session
      * @param file
      * @param request
      * @param response
@@ -231,9 +230,16 @@ public class ProductManageController {
      */
     @RequestMapping("richtext_img_upload.do")
     @ResponseBody
-    public Map richtextImgUpload(HttpSession session, @RequestParam(value = "upload_file", required = false) MultipartFile file, HttpServletRequest request, HttpServletResponse response) {
+    public Map richtextImgUpload( @RequestParam(value = "upload_file", required = false) MultipartFile file, HttpServletRequest request, HttpServletResponse response) {
         Map resultMap = Maps.newHashMap();
- /*       User user = (User) session.getAttribute(Const.CURRENT_USER);
+        String loginToken = CookieUtil.readLoginToken(request);
+        if(StringUtils.isEmpty(loginToken)){
+            resultMap.put("success", false);
+            resultMap.put("msg", "请登录管理员");
+            return resultMap;
+        }
+        String userJsonStr = RedisPoolUtil.get(loginToken);
+        User user = JsonUtil.string2Obj(userJsonStr,User.class);
         if (user == null) {
             resultMap.put("success", false);
             resultMap.put("msg", "请登录管理员");
@@ -263,21 +269,8 @@ public class ProductManageController {
             resultMap.put("success", false);
             resultMap.put("msg", "无权限操作");
             return resultMap;
-        }*/
-        String path = request.getSession().getServletContext().getRealPath("upload");
-        String targetFileName = iFileService.upload(file,path);
-        if(StringUtils.isBlank(targetFileName)){
-            resultMap.put("success",false);
-            resultMap.put("msg","上传失败");
-            return resultMap;
         }
 
-        String url = PropertiesUtil.getProperty("ftp.server.http.prefix")+targetFileName;
-        resultMap.put("success",true);
-        resultMap.put("msg","上传成功");
-        resultMap.put("file_path",url);
-        response.addHeader("Access-Control-Allow-Headers","X-File-Name");
-        return resultMap;
 
     }
 }
