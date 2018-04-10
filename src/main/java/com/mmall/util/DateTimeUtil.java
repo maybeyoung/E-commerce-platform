@@ -11,7 +11,6 @@ import java.util.Date;
 /**
  * @Author: wsj
  * @Description:
- * @Create in 下午 8:49 2018/4/3 0003
  * @Modified by:
  */
 public class DateTimeUtil {
