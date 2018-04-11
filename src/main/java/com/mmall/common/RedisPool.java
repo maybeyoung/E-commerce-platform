@@ -1,16 +1,20 @@
 package com.mmall.common;
 
 import com.mmall.util.PropertiesUtil;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.*;
+import redis.clients.util.Hashing;
+import redis.clients.util.Sharded;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author: wsj
- * @Description:
+ * @Description:redis分片连接池 分布式的redis
  * @Modified by:
  */
 public class RedisPool {
+
     //jedis连接池
     private static JedisPool pool;
     //最大连接数
@@ -37,7 +41,7 @@ public class RedisPool {
         config.setTestOnBorrow(testOnBorrow);
         config.setTestOnReturn(testOnReturn);
 
-         // 连接耗尽的时候，是否阻塞，false会抛出异常，true阻塞直到超时。默认为true。
+        // 连接耗尽的时候，是否阻塞，false会抛出异常，true阻塞直到超时。默认为true。
         config.setBlockWhenExhausted(true);
 
         pool = new JedisPool(config,redisIp,redisPort,1000*2);
@@ -61,21 +65,6 @@ public class RedisPool {
     public static void returnResource(Jedis jedis){
         pool.returnResource(jedis);
     }
-
-
-    public static void main(String[] args) {
-        Jedis jedis = pool.getResource();
-        jedis.set("wsj","wsjvalue");
-        returnResource(jedis);
-
-        pool.destroy();//临时调用，销毁连接池中的所有连接
-        System.out.println("program is end");
-
-
-    }
-
-
-
 
 
 

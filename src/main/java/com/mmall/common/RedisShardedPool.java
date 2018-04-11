@@ -1,10 +1,7 @@
 package com.mmall.common;
 
 import com.mmall.util.PropertiesUtil;
-import redis.clients.jedis.JedisPoolConfig;
-import redis.clients.jedis.JedisShardInfo;
-import redis.clients.jedis.ShardedJedis;
-import redis.clients.jedis.ShardedJedisPool;
+import redis.clients.jedis.*;
 import redis.clients.util.Hashing;
 import redis.clients.util.Sharded;
 
@@ -13,11 +10,10 @@ import java.util.List;
 
 /**
  * @Author: wsj
- * @Description:redis分片连接池 分布式的redis
+ * @Description:
  * @Modified by:
  */
 public class RedisShardedPool {
-
     private static ShardedJedisPool pool;//sharded jedis连接池
     private static Integer maxTotal = Integer.parseInt(PropertiesUtil.getProperty("redis.max.total","20")); //最大连接数
     private static Integer maxIdle = Integer.parseInt(PropertiesUtil.getProperty("redis.max.idle","20"));//在jedispool中最大的idle状态(空闲的)的jedis实例的个数
@@ -76,4 +72,8 @@ public class RedisShardedPool {
     public static void returnResource(ShardedJedis jedis){
         pool.returnResource(jedis);
     }
+
+
+
+
 }
