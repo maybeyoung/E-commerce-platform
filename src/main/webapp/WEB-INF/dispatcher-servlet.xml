@@ -43,8 +43,8 @@
         <!-- 定义在这里的，所有的都会拦截-->
         <mvc:interceptor>
             <mvc:mapping path="/manage/**"/>
-            <!--<mvc:exclude-mapping path="/manage/user/login.do"/>-->
-            <bean class="com.mmall.controller.common.interceptor.AuthorityInterceptor" />
+            <mvc:exclude-mapping path="/manage/user/login.do"/>
+            <bean class="com.mmall.controller.commom.interceptor.AuthorityInterceptor" />
         </mvc:interceptor>
 
     </mvc:interceptors>
